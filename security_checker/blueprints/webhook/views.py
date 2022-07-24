@@ -1,6 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, request
 webhook = Blueprint('webhook', __name__)
 
-@webhook.route("/")
-def list_of_clothes():
-    return "Webhook test"
+@webhook.route("/", methods=['POST'])
+def webhook_process():
+    payload = request.json
+    print(payload)
+    return "ok"

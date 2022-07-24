@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    build: .
+    working_dir: /app
+    command: poetry run flask run --host=0.0.0.0
+    environment:
+      - APP_SETTINGS=security_checker.config.DevelopmentConfig
+      - FLASK_APP=security_checker.app
+      - FLASK_ENV=development
+    volumes:
+      - ".:/app"
+    ports:
+      - "5000"
+  smee:
+    image: "deltaprojects/smee-client:latest"
+    command: "-u $SMEE_URL -t http://app:5000/webhook/"
+    environment:
+      - SMEE_URL=$SMEE_URL
+
