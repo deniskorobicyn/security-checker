@@ -1,15 +1,14 @@
 import os
 from typing import List
 from github import Github, GithubIntegration
-from github.ContentFile import ContentFile
+from github.Comparison import Comparison
 from security_checker.domain.config import Config
 
 from security_checker.domain.vsc import VSC
 
 
 class Github(VSC):
-    def __init__(self, commit) -> None:
-        self.sha = commit
+    def __init__(self, owner, repo_name) -> None:
         config = Config._instance
         app_id = config.github.app_id
         # Read the bot certificate
@@ -32,13 +31,8 @@ class Github(VSC):
     )
 
 
-    def fetch(self) -> List[ContentFile]:
-        contents = self.repo.get_contents("")
-        result = []
-        for content_file in contents:
-            result.push(content_file)
-
-        return result
+    def fetch_diff(self, head, base) -> Comparison:
+        return self.repo.compare(head, base)
 
     def update_status(self, status) -> None:
         self.repo.get_commit(sha=self.sha).create_status(
