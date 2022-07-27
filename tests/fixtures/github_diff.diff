@@ -1,0 +1,227 @@
+diff --git a/poetry.lock b/poetry.lock
+index 54ce6c1..b2f655c 100644
+--- a/poetry.lock
++++ b/poetry.lock
+@@ -109,6 +109,14 @@ category = "main"
+ optional = false
+ python-versions = ">=3.5"
+ 
++[[package]]
++name = "iniconfig"
++version = "1.1.1"
++description = "iniconfig: brain-dead simple config-ini parsing"
++category = "dev"
++optional = false
++python-versions = "*"
++
+ [[package]]
+ name = "itsdangerous"
+ version = "2.1.2"
+@@ -139,14 +147,6 @@ category = "main"
+ optional = false
+ python-versions = ">=3.7"
+ 
+-[[package]]
+-name = "more-itertools"
+-version = "8.13.0"
+-description = "More routines for operating on iterables, beyond itertools"
+-category = "dev"
+-optional = false
+-python-versions = ">=3.5"
+-
+ [[package]]
+ name = "packaging"
+ version = "21.3"
+@@ -244,25 +244,24 @@ diagrams = ["railroad-diagrams", "jinja2"]
+ 
+ [[package]]
+ name = "pytest"
+-version = "5.4.3"
++version = "7.1.2"
+ description = "pytest: simple powerful testing with Python"
+ category = "dev"
+ optional = false
+-python-versions = ">=3.5"
++python-versions = ">=3.7"
+ 
+ [package.dependencies]
+ atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
+-attrs = ">=17.4.0"
++attrs = ">=19.2.0"
+ colorama = {version = "*", markers = "sys_platform == \"win32\""}
+-more-itertools = ">=4.0.0"
++iniconfig = "*"
+ packaging = "*"
+-pluggy = ">=0.12,<1.0"
+-py = ">=1.5.0"
+-wcwidth = "*"
++pluggy = ">=0.12,<2.0"
++py = ">=1.8.2"
++tomli = ">=1.0.0"
+ 
+ [package.extras]
+-checkqa-mypy = ["mypy (==v0.761)"]
+-testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
++testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
+ 
+ [[package]]
+ name = "requests"
+@@ -282,6 +281,14 @@ urllib3 = ">=1.21.1,<1.27"
+ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
+ use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+ 
++[[package]]
++name = "tomli"
++version = "2.0.1"
++description = "A lil' TOML parser"
++category = "dev"
++optional = false
++python-versions = ">=3.7"
++
+ [[package]]
+ name = "urllib3"
+ version = "1.26.10"
+@@ -295,14 +302,6 @@ brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
+ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
+ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+ 
+-[[package]]
+-name = "wcwidth"
+-version = "0.2.5"
+-description = "Measures the displayed width of unicode strings in a terminal"
+-category = "dev"
+-optional = false
+-python-versions = "*"
+-
+ [[package]]
+ name = "werkzeug"
+ version = "2.2.0"
+@@ -328,7 +327,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+ [metadata]
+ lock-version = "1.1"
+ python-versions = "^3.10"
+-content-hash = "27db8384bac0d46320903a151fd13f05b426deffa09d802911027f7805cd0e5b"
++content-hash = "b27cc09c8023661f2bf94efebd57a775b262e6c91b5ee7ca31b5c7bc2ebfcfa2"
+ 
+ [metadata.files]
+ atomicwrites = [
+@@ -432,6 +431,10 @@ idna = [
+     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
+     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
+ ]
++iniconfig = [
++    {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
++    {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
++]
+ itsdangerous = [
+     {file = "itsdangerous-2.1.2-py3-none-any.whl", hash = "sha256:2c2349112351b88699d8d4b6b075022c0808887cb7ad10069318a8b0bc88db44"},
+     {file = "itsdangerous-2.1.2.tar.gz", hash = "sha256:5dbbc68b317e5e42f327f9021763545dc3fc3bfe22e6deb96aaf1fc38874156a"},
+@@ -482,10 +485,6 @@ markupsafe = [
+     {file = "MarkupSafe-2.1.1-cp39-cp39-win_amd64.whl", hash = "sha256:46d00d6cfecdde84d40e572d63735ef81423ad31184100411e6e3388d405e247"},
+     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
+ ]
+-more-itertools = [
+-    {file = "more-itertools-8.13.0.tar.gz", hash = "sha256:a42901a0a5b169d925f6f217cd5a190e32ef54360905b9c39ee7db5313bfec0f"},
+-    {file = "more_itertools-8.13.0-py3-none-any.whl", hash = "sha256:c5122bffc5f104d37c1626b8615b511f3427aa5389b94d61e5ef8236bfbc3ddb"},
+-]
+ packaging = [
+     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
+     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
+@@ -527,21 +526,21 @@ pyparsing = [
+     {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
+ ]
+ pytest = [
+-    {file = "pytest-5.4.3-py3-none-any.whl", hash = "sha256:5c0db86b698e8f170ba4582a492248919255fcd4c79b1ee64ace34301fb589a1"},
+-    {file = "pytest-5.4.3.tar.gz", hash = "sha256:7979331bfcba207414f5e1263b5a0f8f521d0f457318836a7355531ed1a4c7d8"},
++    {file = "pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c"},
++    {file = "pytest-7.1.2.tar.gz", hash = "sha256:a06a0425453864a270bc45e71f783330a7428defb4230fb5e6a731fde06ecd45"},
+ ]
+ requests = [
+     {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
+     {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
+ ]
++tomli = [
++    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
++    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
++]
+ urllib3 = [
+     {file = "urllib3-1.26.10-py2.py3-none-any.whl", hash = "sha256:8298d6d56d39be0e3bc13c1c97d133f9b45d797169a0e11cdd0e0489d786f7ec"},
+     {file = "urllib3-1.26.10.tar.gz", hash = "sha256:879ba4d1e89654d9769ce13121e0f94310ea32e8d2f8cf587b77c08bbcdb30d6"},
+ ]
+-wcwidth = [
+-    {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},
+-    {file = "wcwidth-0.2.5.tar.gz", hash = "sha256:c4d647b99872929fdb7bdcaa4fbe7f01413ed3d98077df798530e5b04f116c83"},
+-]
+ werkzeug = [
+     {file = "Werkzeug-2.2.0-py3-none-any.whl", hash = "sha256:81806f8a5b35e6cb1b39a6f28dabf0e123f069c8596119a1a9a43838870016cd"},
+     {file = "Werkzeug-2.2.0.tar.gz", hash = "sha256:fe8bcdcef40275ed915fc734c2527a39d705b57a716d4f09e790296abbd16a7f"},
+diff --git a/pyproject.toml b/pyproject.toml
+index 9da02fc..d2324d7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -10,7 +10,7 @@ Flask = "^2.1.3"
+ PyGithub = "^1.55"
+ 
+ [tool.poetry.dev-dependencies]
+-pytest = "^5.2"
++pytest = "^7.1.2"
+ 
+ [build-system]
+ requires = ["poetry-core>=1.0.0"]
+diff --git a/security_checker/domain/vsc/github.py b/security_checker/domain/vsc/github.py
+index ad909e2..6f6b39f 100644
+--- a/security_checker/domain/vsc/github.py
++++ b/security_checker/domain/vsc/github.py
+@@ -1,15 +1,14 @@
+ import os
+ from typing import List
+ from github import Github, GithubIntegration
+-from github.ContentFile import ContentFile
++from github.Comparison import Comparison
+ from security_checker.domain.config import Config
+ 
+ from security_checker.domain.vsc import VSC
+ 
+ 
+ class Github(VSC):
+-    def __init__(self, commit) -> None:
+-        self.sha = commit
++    def __init__(self, owner, repo_name) -> None:
+         config = Config._instance
+         app_id = config.github.app_id
+         # Read the bot certificate
+@@ -32,13 +31,8 @@ def __init__(self, commit) -> None:
+     )
+ 
+ 
+-    def fetch(self) -> List[ContentFile]:
+-        contents = self.repo.get_contents("")
+-        result = []
+-        for content_file in contents:
+-            result.push(content_file)
+-
+-        return result
++    def fetch_diff(self, head, base) -> Comparison:
++        return self.repo.compare(head, base)
+ 
+     def update_status(self, status) -> None:
+         self.repo.get_commit(sha=self.sha).create_status(
+diff --git a/tests/fixtures/github_webhook.json b/tests/fixtures/github_webhook.json
+new file mode 100644
+index 0000000..d0e8800
+--- /dev/null
++++ b/tests/fixtures/github_webhook.json
+@@ -0,0 +1 @@
++{"event":"check_suite","payload":{"action":"requested","check_suite":{"id":7513520247,"node_id":"CS_kwDOHtbu-c8AAAABv9c4dw","head_branch":"test_pr","head_sha":"29b4a63d7b1e5aad7c7de479dcc68df5aecc004c","status":"queued","conclusion":null,"url":"https://api.github.com/repos/deniskorobicyn/security-checker/check-suites/7513520247","before":"cdb904d525219384d739ef194c9bb9855876ba0e","after":"29b4a63d7b1e5aad7c7de479dcc68df5aecc004c","pull_requests":[{"url":"https://api.github.com/repos/deniskorobicyn/security-checker/pulls/1","id":1007622296,"number":1,"head":{"ref":"test_pr","sha":"29b4a63d7b1e5aad7c7de479dcc68df5aecc004c","repo":{"id":517402361,"url":"https://api.github.com/repos/deniskorobicyn/security-checker","name":"security-checker"}},"base":{"ref":"master","sha":"9edbc0a6dbf13feb43f39553560296c4674ec4c0","repo":{"id":517402361,"url":"https://api.github.com/repos/deniskorobicyn/security-checker","name":"security-checker"}}}],"app":{"id":222372,"slug":"cheeky-cheaker","node_id":"A_kwDOAHq-jM4AA2Sk","owner":{"login":"deniskorobicyn","id":8044172,"node_id":"MDQ6VXNlcjgwNDQxNzI=","avatar_url":"https://avatars.githubusercontent.com/u/8044172?v=4","gravatar_id":"","url":"https://api.github.com/users/deniskorobicyn","html_url":"https://github.com/deniskorobicyn","followers_url":"https://api.github.com/users/deniskorobicyn/followers","following_url":"https://api.github.com/users/deniskorobicyn/following{/other_user}","gists_url":"https://api.github.com/users/deniskorobicyn/gists{/gist_id}","starred_url":"https://api.github.com/users/deniskorobicyn/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/deniskorobicyn/subscriptions","organizations_url":"https://api.github.com/users/deniskorobicyn/orgs","repos_url":"https://api.github.com/users/deniskorobicyn/repos","events_url":"https://api.github.com/users/deniskorobicyn/events{/privacy}","received_events_url":"https://api.github.com/users/deniskorobicyn/received_events","type":"User","site_admin":false},"name":"Cheeky Cheaker","description":"","external_url":"https://github.com/deniskorobicyn/security-checker","html_url":"https://github.com/apps/cheeky-cheaker","created_at":"2022-07-24T19:39:15Z","updated_at":"2022-07-25T18:15:39Z","permissions":{"checks":"write","dependabot_secrets":"write","metadata":"read","secret_scanning_alerts":"write","security_events":"write","statuses":"write","vulnerability_alerts":"write"},"events":[]},"created_at":"2022-07-25T19:30:40Z","updated_at":"2022-07-25T19:30:40Z","rerequestable":true,"runs_rerequestable":true,"latest_check_runs_count":0,"check_runs_url":"https://api.github.com/repos/deniskorobicyn/security-checker/check-suites/7513520247/check-runs","head_commit":{"id":"29b4a63d7b1e5aad7c7de479dcc68df5aecc004c","tree_id":"7c85023da5fe96b09c63ce2ccebe82e5fe4c9504","message":"Add business logic","timestamp":"2022-07-25T19:30:33Z","author":{"name":"Denis Korobitsin","email":"deniskorobicyn@users.noreply.github.com"},"committer":{"name":"Denis Korobitsin","email":"deniskorobicyn@users.noreply.github.com"}}},"repository":{"id":517402361,"node_id":"R_kgDOHtbu-Q","name":"security-checker","full_name":"deniskorobicyn/security-checker","private":false,"owner":{"login":"deniskorobicyn","id":8044172,"node_id":"MDQ6VXNlcjgwNDQxNzI=","avatar_url":"https://avatars.githubusercontent.com/u/8044172?v=4","gravatar_id":"","url":"https://api.github.com/users/deniskorobicyn","html_url":"https://github.com/deniskorobicyn","followers_url":"https://api.github.com/users/deniskorobicyn/followers","following_url":"https://api.github.com/users/deniskorobicyn/following{/other_user}","gists_url":"https://api.github.com/users/deniskorobicyn/gists{/gist_id}","starred_url":"https://api.github.com/users/deniskorobicyn/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/deniskorobicyn/subscriptions","organizations_url":"https://api.github.com/users/deniskorobicyn/orgs","repos_url":"https://api.github.com/users/deniskorobicyn/repos","events_url":"https://api.github.com/users/deniskorobicyn/events{/privacy}","received_events_url":"https://api.github.com/users/deniskorobicyn/received_events","type":"User","site_admin":false},"html_url":"https://github.com/deniskorobicyn/security-checker","description":null,"fork":false,"url":"https://api.github.com/repos/deniskorobicyn/security-checker","forks_url":"https://api.github.com/repos/deniskorobicyn/security-checker/forks","keys_url":"https://api.github.com/repos/deniskorobicyn/security-checker/keys{/key_id}","collaborators_url":"https://api.github.com/repos/deniskorobicyn/security-checker/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/deniskorobicyn/security-checker/teams","hooks_url":"https://api.github.com/repos/deniskorobicyn/security-checker/hooks","issue_events_url":"https://api.github.com/repos/deniskorobicyn/security-checker/issues/events{/number}","events_url":"https://api.github.com/repos/deniskorobicyn/security-checker/events","assignees_url":"https://api.github.com/repos/deniskorobicyn/security-checker/assignees{/user}","branches_url":"https://api.github.com/repos/deniskorobicyn/security-checker/branches{/branch}","tags_url":"https://api.github.com/repos/deniskorobicyn/security-checker/tags","blobs_url":"https://api.github.com/repos/deniskorobicyn/security-checker/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/deniskorobicyn/security-checker/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/deniskorobicyn/security-checker/git/refs{/sha}","trees_url":"https://api.github.com/repos/deniskorobicyn/security-checker/git/trees{/sha}","statuses_url":"https://api.github.com/repos/deniskorobicyn/security-checker/statuses/{sha}","languages_url":"https://api.github.com/repos/deniskorobicyn/security-checker/languages","stargazers_url":"https://api.github.com/repos/deniskorobicyn/security-checker/stargazers","contributors_url":"https://api.github.com/repos/deniskorobicyn/security-checker/contributors","subscribers_url":"https://api.github.com/repos/deniskorobicyn/security-checker/subscribers","subscription_url":"https://api.github.com/repos/deniskorobicyn/security-checker/subscription","commits_url":"https://api.github.com/repos/deniskorobicyn/security-checker/commits{/sha}","git_commits_url":"https://api.github.com/repos/deniskorobicyn/security-checker/git/commits{/sha}","comments_url":"https://api.github.com/repos/deniskorobicyn/security-checker/comments{/number}","issue_comment_url":"https://api.github.com/repos/deniskorobicyn/security-checker/issues/comments{/number}","contents_url":"https://api.github.com/repos/deniskorobicyn/security-checker/contents/{+path}","compare_url":"https://api.github.com/repos/deniskorobicyn/security-checker/compare/{base}...{head}","merges_url":"https://api.github.com/repos/deniskorobicyn/security-checker/merges","archive_url":"https://api.github.com/repos/deniskorobicyn/security-checker/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/deniskorobicyn/security-checker/downloads","issues_url":"https://api.github.com/repos/deniskorobicyn/security-checker/issues{/number}","pulls_url":"https://api.github.com/repos/deniskorobicyn/security-checker/pulls{/number}","milestones_url":"https://api.github.com/repos/deniskorobicyn/security-checker/milestones{/number}","notifications_url":"https://api.github.com/repos/deniskorobicyn/security-checker/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/deniskorobicyn/security-checker/labels{/name}","releases_url":"https://api.github.com/repos/deniskorobicyn/security-checker/releases{/id}","deployments_url":"https://api.github.com/repos/deniskorobicyn/security-checker/deployments","created_at":"2022-07-24T18:15:27Z","updated_at":"2022-07-24T18:15:52Z","pushed_at":"2022-07-25T19:30:39Z","git_url":"git://github.com/deniskorobicyn/security-checker.git","ssh_url":"git@github.com:deniskorobicyn/security-checker.git","clone_url":"https://github.com/deniskorobicyn/security-checker.git","svn_url":"https://github.com/deniskorobicyn/security-checker","homepage":null,"size":18,"stargazers_count":0,"watchers_count":0,"language":"Python","has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":1,"license":null,"allow_forking":true,"is_template":false,"web_commit_signoff_required":false,"topics":[],"visibility":"public","forks":0,"open_issues":1,"watchers":0,"default_branch":"master"},"sender":{"login":"deniskorobicyn","id":8044172,"node_id":"MDQ6VXNlcjgwNDQxNzI=","avatar_url":"https://avatars.githubusercontent.com/u/8044172?v=4","gravatar_id":"","url":"https://api.github.com/users/deniskorobicyn","html_url":"https://github.com/deniskorobicyn","followers_url":"https://api.github.com/users/deniskorobicyn/followers","following_url":"https://api.github.com/users/deniskorobicyn/following{/other_user}","gists_url":"https://api.github.com/users/deniskorobicyn/gists{/gist_id}","starred_url":"https://api.github.com/users/deniskorobicyn/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/deniskorobicyn/subscriptions","organizations_url":"https://api.github.com/users/deniskorobicyn/orgs","repos_url":"https://api.github.com/users/deniskorobicyn/repos","events_url":"https://api.github.com/users/deniskorobicyn/events{/privacy}","received_events_url":"https://api.github.com/users/deniskorobicyn/received_events","type":"User","site_admin":false},"installation":{"id":27689319,"node_id":"MDIzOkludGVncmF0aW9uSW5zdGFsbGF0aW9uMjc2ODkzMTk="}}}
+\ No newline at end of file
+diff --git a/tests/test_github.py b/tests/test_github.py
+new file mode 100644
+index 0000000..4e2d616
+--- /dev/null
++++ b/tests/test_github.py
+@@ -0,0 +1,4 @@
++
++
++def test_fetch():
++    pass
+\ No newline at end of file
