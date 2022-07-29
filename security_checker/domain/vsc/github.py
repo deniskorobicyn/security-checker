@@ -1,6 +1,7 @@
 import os
 from urllib.request import urlopen
 from github import Github, GithubIntegration
+fromt github.ContentFile import ContentFile
 
 from security_checker.domain.vsc import VSC
 
@@ -26,6 +27,8 @@ class GithubVSC(VSC):
         )
         self.repo = self.github.get_repo(f"{owner}/{repo_name}")
 
+    def fetch_poetry(self) -> ContentFile:
+        self.repo.get_contents("poetry.lock")
 
     def fetch_diff(self, head, base) -> str:
         comparasion = self.repo.compare(head, base)

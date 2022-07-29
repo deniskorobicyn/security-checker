@@ -20,8 +20,14 @@
 
 #### MVP 0
 - check python code
-- react to webhook
-- to be able to work on this repo
+- check repo only once (no PR or anything like that)
+- no diff
+- find all vulnerabilities using pip-audit or OSV database
+- show list of vulnerabilities on the dashboard
+- allow to add more projects
+
+### MVP 1
+- TBD
 
 ##### problems accured
  - safety is paid tool eventually
@@ -31,3 +37,9 @@
 - use of https://osv.dev/list
 - direct usage of databases for vulnerailities
 - main feature of the project is dashboards and overview of all vulnerabilities
+- extract tool for osv access for poetry into cli
+
+
+#### dashboard ideas
+ - project overview of all vulnerabilities found
+ -
