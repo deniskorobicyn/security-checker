@@ -12,3 +12,15 @@ def test_fetch():
             test_diff = diff_file.read()
 
     assert result == test_diff
+
+def test_fetch_poetry():
+    github = GithubVSC("deniskorobicyn", "security-checker")
+    result = github.fetch_poetry("3e48df0d9ca737")
+
+    with open(
+        os.path.normpath(os.path.expanduser("./tests/fixtures/poetry.lock")),
+        'r'
+    ) as poetry_file:
+            poetry = poetry_file.read()
+
+    assert result.decoded_content.decode("utf-8") == poetry
