@@ -1,5 +1,4 @@
 from flask import Blueprint, request
-from security_checker.domain.github import Github
 from security_checker.domain.checker import Checker
 webhook = Blueprint('webhook', __name__)
 

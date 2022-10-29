@@ -9,7 +9,7 @@ ENV PYTHONFAULTHANDLER=1 \
   POETRY_VERSION=1.1.14 \
   PIP_VERSION=22.1.2
 
-RUN apk add --update build-base
+RUN apk add --update build-base gcc musl-dev python3-dev libffi-dev openssl-dev cargo libpq postgresql-dev
 RUN pip install --upgrade "pip==$PIP_VERSION" && pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /app

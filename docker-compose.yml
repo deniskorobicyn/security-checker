@@ -6,15 +6,24 @@ services:
     command: poetry run flask run --host=0.0.0.0
     environment:
       - APP_SETTINGS=security_checker.config.DevelopmentConfig
-      - FLASK_APP=security_checker.app
+      - FLASK_APP=app
       - FLASK_ENV=development
+      - DATABASE_URI=postgresql://docker:docker@pg/docker
     volumes:
       - ".:/app"
     ports:
       - "5000:5000"
-  smee:
-    image: "deltaprojects/smee-client:latest"
-    command: "-u $SMEE_URL -t http://app:5000/webhook/"
+    depends_on:
+      - pg
+  pg:
+    image: postgres:14
     environment:
-      - SMEE_URL=$SMEE_URL
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+    volumes:
+      - ./db/dumps:/docker-entrypoint-initdb.d
+      - pg-data:/var/lib/postgresql/data
 
+volumes:
+  pg-data:
+    driver: local
